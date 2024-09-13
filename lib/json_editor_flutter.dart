@@ -394,6 +394,14 @@ class _JsonEditorState extends State<JsonEditor> {
   }
 
   @override
+  void didUpdateWidget(covariant oldWidget) {
+    print("didUpdateWidget json ${widget.json}");
+    print("didUpdateWidget data: $_data");
+    _data = jsonDecode(widget.json);
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void dispose() {
     _timer?.cancel();
     _controller.dispose();
@@ -402,6 +410,8 @@ class _JsonEditorState extends State<JsonEditor> {
 
   @override
   Widget build(BuildContext context) {
+    print("json ${widget.json}");
+    print("data: $_data");
     return DecoratedBox(
       decoration: BoxDecoration(
         border: Border.all(
@@ -1042,7 +1052,7 @@ class _ReplaceTextWithFieldState extends State<_ReplaceTextWithField> {
             });
             _focusNode.requestFocus();
           },
-          mouseCursor: MaterialStateMouseCursor.textable,
+          mouseCursor: WidgetStateMouseCursor.textable,
           child: widget.initialValue is String && _text.isEmpty
               ? const SizedBox(width: 200, height: 18)
               : wrapWithColoredBox(_text),
